@@ -1,41 +1,40 @@
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { Avatar, Box } from '@mui/material';
+import { makeStyles } from '@material-ui/core';
+import MainContent from '../components/Home/MainContent';
+import withSSRGuest from '../utils/withSSRGuest';
 
-import api from '../services/api';
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    gap: theme.spacing(2),
+    height: '100vh',
+    padding: '2rem',
+  },
+}));
 
-interface IRequest {
-  name: string;
-}
+export default function Home(): JSX.Element {
+  const classes = useStyles();
 
-interface IHomeProps {
-  data: IRequest;
-}
-
-export default function Home({ data }: IHomeProps): JSX.Element {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Início | WannaGo</title>
       </Head>
-      <h1>
-        Hello! Template made by
-        <a
-          target="_blank"
-          href="https://github.com/RodrigoRVSN"
-          rel="noreferrer"
-        >
-          {' '}
-          {data && data.name}
-        </a>
-      </h1>
+      <Box className={classes.container}>
+        <Avatar
+          sx={{ height: '40rem', width: '40rem' }}
+          src="/map.svg"
+          alt="Person looking to a map"
+        />
+        <MainContent />
+      </Box>
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await api.get('/hello');
-
-  return {
-    props: { data: response.data },
-  };
-};
+export const getServerSideProps = withSSRGuest(async () => ({
+  props: {},
+}));
