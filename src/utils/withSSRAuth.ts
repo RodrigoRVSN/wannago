@@ -11,6 +11,16 @@ export default function withSSRAuth<P>(fn: GetServerSideProps<P>) {
   ): Promise<GetServerSidePropsResult<P>> => {
     const cookies = parseCookies(ctx);
     const token = cookies['@wannago_token'];
+    const pathname = ctx.resolvedUrl;
+
+    if (token && pathname !== '/application') {
+      return {
+        redirect: {
+          destination: '/application',
+          permanent: false,
+        },
+      };
+    }
 
     if (!token) {
       return {

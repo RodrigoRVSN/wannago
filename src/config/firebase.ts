@@ -16,7 +16,6 @@ try {
 } catch (err: any) {
   console.log(err.message);
 }
-
 const fire = firebase;
 
 export default fire;
