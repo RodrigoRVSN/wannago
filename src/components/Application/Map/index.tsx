@@ -41,7 +41,7 @@ export function Map(): JSX.Element {
       }}
     >
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyBWFpFyEhaqKHr4StNS5Y6FGWUNpGfmHPU' }}
+        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_API_KEY ?? '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
         yesIWantToUseGoogleMapApiInternals

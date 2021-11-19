@@ -14,7 +14,7 @@ const firebaseConfig = {
 try {
   firebase.initializeApp(firebaseConfig);
 } catch (err: any) {
-  console.log(err.message);
+  // console.log(err.message);
 }
 const fire = firebase;
 
