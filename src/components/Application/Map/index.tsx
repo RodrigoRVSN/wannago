@@ -1,6 +1,7 @@
 import GoogleMapReact from 'google-map-react';
-
 import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
+import { Dispatch, SetStateAction } from 'react';
+import { INewLocation } from '../MapContainer';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ReactComponent = ({ lat, lng }: any): JSX.Element => (
@@ -9,7 +10,11 @@ const ReactComponent = ({ lat, lng }: any): JSX.Element => (
   </div>
 );
 
-export function Map(): JSX.Element {
+interface IMap {
+  setCoord: Dispatch<SetStateAction<INewLocation>>;
+}
+
+export function Map({ setCoord }: IMap): JSX.Element {
   const defaultProps = {
     center: {
       lat: -23.5489,
@@ -33,6 +38,13 @@ export function Map(): JSX.Element {
     },
   ];
 
+  function handleClickNewPoint(e: GoogleMapReact.ClickEventValue): void {
+    setCoord({
+      lat: e.lat,
+      lng: e.lng,
+    });
+  }
+
   return (
     <div
       style={{
@@ -41,6 +53,7 @@ export function Map(): JSX.Element {
       }}
     >
       <GoogleMapReact
+        onClick={e => handleClickNewPoint(e)}
         bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_API_KEY ?? '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}

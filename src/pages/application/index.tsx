@@ -5,7 +5,7 @@ import { Navbar } from '../../components/Application/Navbar';
 import { adminAuth } from '../../config/adminFirebase';
 import useAuth from '../../hooks/useAuth';
 import withSSRAuth from '../../utils/withSSRAuth';
-import { Map } from '../../components/Application/Map';
+import { MapContainer } from '../../components/Application/MapContainer';
 
 interface IUserInfo {
   userInfo: firebase.default.User | null;
@@ -32,7 +32,7 @@ export default function Dashboard({ userInfo }: IUserInfo): JSX.Element {
           justifyContent: 'center',
         }}
       >
-        <Map />
+        <MapContainer />
       </main>
     </>
   );

@@ -24,7 +24,7 @@ ___
 - [x] Nookies to persist login.
 - [x] Show user info and SignOut user .
 - [x] Responsivity
-- [ ] Render Map
+- [x] Render Map
 - [ ] Pin locals and add descriptions in the local.
 - [ ] Save info in Firestore
 - [ ] Thinking...
@@ -39,7 +39,7 @@ ___
 - <b>Nextjs</b>
 - <b>Firebase</b>
 - Material UI
-- Leaflet
+- Reac Google Maps API
 - Nookies
 
 <!--- #################### mudar ferramentas #################### --->
