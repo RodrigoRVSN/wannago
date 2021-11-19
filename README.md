@@ -22,8 +22,9 @@ ___
 
 - [x] Google Auth with Firebase.
 - [x] Nookies to persist login.
-- [ ] Show user info and SignOut user .
-- [ ] Responsivity
+- [x] Show user info and SignOut user .
+- [x] Responsivity
+- [ ] Render Map
 - [ ] Pin locals and add descriptions in the local.
 - [ ] Save info in Firestore
 - [ ] Thinking...

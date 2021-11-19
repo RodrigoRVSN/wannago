@@ -1,27 +1,40 @@
-import { Avatar } from '@mui/material';
+import Head from 'next/head';
 import { parseCookies } from 'nookies';
 import { useEffect } from 'react';
+import { Navbar } from '../../components/Application/Navbar';
 import { adminAuth } from '../../config/adminFirebase';
 import useAuth from '../../hooks/useAuth';
 import withSSRAuth from '../../utils/withSSRAuth';
+import { Map } from '../../components/Application/Map';
 
 interface IUserInfo {
   userInfo: firebase.default.User | null;
 }
 
 export default function Dashboard({ userInfo }: IUserInfo): JSX.Element {
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
 
   useEffect(() => {
     setUser(userInfo);
   }, [setUser, userInfo]);
 
   return (
-    <Avatar
-      sx={{ height: '5rem', width: '5rem' }}
-      src={String(user?.photoURL)}
-      alt="Person looking to a map"
-    />
+    <>
+      <Head>
+        <title>Aplicação | WannaGo</title>
+      </Head>
+      <Navbar />
+      <main
+        style={{
+          marginTop: 50,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Map />
+      </main>
+    </>
   );
 }
 

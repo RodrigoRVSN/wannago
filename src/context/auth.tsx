@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { setCookie } from 'nookies';
+import { destroyCookie, setCookie } from 'nookies';
 import {
   createContext,
   Dispatch,
@@ -21,6 +21,7 @@ export interface IAuthContextData {
   user: firebase.default.User | null;
   setUser: Dispatch<SetStateAction<firebase.default.User | null>>;
   handleSignInGoogle: () => void;
+  handleSignOut: () => void;
 }
 
 export const AuthContextData = createContext({} as IAuthContextData);
@@ -46,8 +47,17 @@ export function AuthProvider({ children }: IAuthProvider): JSX.Element {
     }
   }, [router]);
 
+  const handleSignOut = useCallback(async () => {
+    await firebase.auth().signOut();
+    setUser({} as firebase.default.User | null);
+    destroyCookie(undefined, '@wannago_token');
+    router.push('/');
+  }, [router]);
+
   return (
-    <AuthContextData.Provider value={{ handleSignInGoogle, user, setUser }}>
+    <AuthContextData.Provider
+      value={{ handleSignInGoogle, handleSignOut, user, setUser }}
+    >
       {children}
     </AuthContextData.Provider>
   );
