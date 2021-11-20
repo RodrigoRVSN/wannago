@@ -20,6 +20,8 @@ export interface IUser {
 export interface IAuthContextData {
   user: firebase.default.User | null;
   setUser: Dispatch<SetStateAction<firebase.default.User | null>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   handleSignInGoogle: () => void;
   handleSignOut: () => void;
 }
@@ -32,9 +34,11 @@ interface IAuthProvider {
 
 export function AuthProvider({ children }: IAuthProvider): JSX.Element {
   const [user, setUser] = useState<firebase.default.User | null>(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSignInGoogle = useCallback(async () => {
+    setLoading(true);
     const response = await auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
@@ -44,19 +48,29 @@ export function AuthProvider({ children }: IAuthProvider): JSX.Element {
         setCookie(undefined, '@wannago_token', token);
       });
       router.push('/application');
+      setLoading(false);
     }
   }, [router]);
 
   const handleSignOut = useCallback(async () => {
+    setLoading(true);
     await auth.signOut();
-    setUser({} as firebase.default.User | null);
-    destroyCookie(undefined, '@wannago_token');
     router.push('/');
+    destroyCookie(undefined, '@wannago_token');
+    setUser({} as firebase.default.User | null);
+    setLoading(false);
   }, [router]);
 
   return (
     <AuthContextData.Provider
-      value={{ handleSignInGoogle, handleSignOut, user, setUser }}
+      value={{
+        handleSignInGoogle,
+        handleSignOut,
+        loading,
+        setLoading,
+        user,
+        setUser,
+      }}
     >
       {children}
     </AuthContextData.Provider>

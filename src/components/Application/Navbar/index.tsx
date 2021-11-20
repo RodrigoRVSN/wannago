@@ -1,12 +1,14 @@
-import { Button, Typography } from '@mui/material';
+import { Button, CircularProgress, Typography } from '@mui/material';
 import useAuth from '../../../hooks/useAuth';
+import LinearProgresBar from '../../LinearProgressBar';
 import { AvatarContainer, Header, UserInfo, Container } from './styles';
 
 export function Navbar(): JSX.Element {
-  const { user, handleSignOut } = useAuth();
+  const { user, handleSignOut, loading } = useAuth();
 
   return (
     <Header position="static">
+      <LinearProgresBar loading={loading} />
       <Container variant="dense">
         <UserInfo>
           <AvatarContainer
@@ -23,7 +25,7 @@ export function Navbar(): JSX.Element {
           color="secondary"
           onClick={handleSignOut}
         >
-          Sair
+          {loading ? <CircularProgress size={20} color="primary" /> : 'Sair'}
         </Button>
       </Container>
     </Header>

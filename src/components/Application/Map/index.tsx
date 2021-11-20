@@ -4,6 +4,7 @@ import { INewLocation } from '../MapContainer';
 import { db } from '../../../config/firebase';
 import { MarkerPin } from '../MarkerPin';
 import { IMarkers } from '../../../@types/IMarkers';
+import LinearProgresBar from '../../LinearProgressBar';
 
 interface IMap {
   setCoord: Dispatch<SetStateAction<INewLocation>>;
@@ -13,6 +14,7 @@ interface IMap {
 
 export function Map({ setCoord, openModal, setOpenModal }: IMap): JSX.Element {
   const [markers, setMarkers] = useState<IMarkers[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const defaultProps = {
     center: {
@@ -41,6 +43,7 @@ export function Map({ setCoord, openModal, setOpenModal }: IMap): JSX.Element {
       });
     });
     setMarkers(locals);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -56,23 +59,31 @@ export function Map({ setCoord, openModal, setOpenModal }: IMap): JSX.Element {
   }
 
   return (
-    <div
-      style={{
-        height: '90vh',
-        width: '95vw',
-      }}
-    >
-      <GoogleMapReact
-        onClick={e => handleClickNewPoint(e)}
-        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_API_KEY ?? '' }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
-        yesIWantToUseGoogleMapApiInternals
+    <>
+      <LinearProgresBar loading={loading} />
+      <div
+        style={{
+          height: '90vh',
+          width: '95vw',
+        }}
       >
-        {markers?.map(info => (
-          <MarkerPin marker={info} lat={info.coord.lat} lng={info.coord.lng} />
-        ))}
-      </GoogleMapReact>
-    </div>
+        <GoogleMapReact
+          onClick={e => handleClickNewPoint(e)}
+          bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_API_KEY ?? '' }}
+          defaultCenter={defaultProps.center}
+          defaultZoom={defaultProps.zoom}
+          yesIWantToUseGoogleMapApiInternals
+        >
+          {markers?.map(info => (
+            <MarkerPin
+              key={info.id}
+              marker={info}
+              lat={info.coord.lat}
+              lng={info.coord.lng}
+            />
+          ))}
+        </GoogleMapReact>
+      </div>
+    </>
   );
 }
