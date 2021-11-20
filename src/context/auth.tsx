@@ -8,7 +8,7 @@ import {
   useCallback,
   useState,
 } from 'react';
-import firebase from '../config/firebase';
+import firebase, { auth } from '../config/firebase';
 
 export interface IUser {
   user_id: string;
@@ -35,9 +35,9 @@ export function AuthProvider({ children }: IAuthProvider): JSX.Element {
   const router = useRouter();
 
   const handleSignInGoogle = useCallback(async () => {
-    const response = await firebase
-      .auth()
-      .signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    const response = await auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    );
     if (response.user) {
       setUser(response.user);
       await response.user.getIdToken().then(token => {
@@ -48,7 +48,7 @@ export function AuthProvider({ children }: IAuthProvider): JSX.Element {
   }, [router]);
 
   const handleSignOut = useCallback(async () => {
-    await firebase.auth().signOut();
+    await auth.signOut();
     setUser({} as firebase.default.User | null);
     destroyCookie(undefined, '@wannago_token');
     router.push('/');

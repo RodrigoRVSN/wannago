@@ -13,7 +13,11 @@ export function MapContainer(): JSX.Element {
 
   return (
     <>
-      <Map setCoord={setCoord} setOpenModal={setOpenModal} />
+      <Map
+        openModal={openModal}
+        setCoord={setCoord}
+        setOpenModal={setOpenModal}
+      />
       <ModalNewItem
         openModal={openModal}
         setOpenModal={setOpenModal}

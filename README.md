@@ -25,8 +25,8 @@ ___
 - [x] Show user info and SignOut user .
 - [x] Responsivity
 - [x] Render Map
-- [ ] Pin locals and add descriptions in the local.
-- [ ] Save info in Firestore
+- [x] Pin locals and add descriptions in the local.
+- [x] Save info in Firestore
 - [ ] Thinking...
 ___
 ## 💻 Prerequisites

@@ -11,9 +11,9 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from 'react';
+import { db } from '../../../config/firebase';
 import useAuth from '../../../hooks/useAuth';
 import api from '../../../services/api';
 import { INewLocation } from '../MapContainer';
@@ -35,6 +35,19 @@ export function ModalNewItem({
   const [company, setCompany] = useState('');
   const [reasons, setReasons] = useState('');
   const [local, setLocal] = useState();
+
+  async function handleAddLocal(): Promise<void> {
+    db.collection('locals').doc(String(Math.random())).set({
+      company,
+      coord,
+      local,
+      reasons,
+      user,
+    });
+    setOpenModal(false);
+    setCompany('');
+    setReasons('');
+  }
 
   const getLocation = useCallback(async () => {
     const response = await api.get(
@@ -94,6 +107,7 @@ export function ModalNewItem({
           disabled={!reasons || !company}
           className={classes.button}
           variant="contained"
+          onClick={() => handleAddLocal()}
         >
           Marcar novo lugar
         </Button>

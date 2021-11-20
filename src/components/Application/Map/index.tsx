@@ -1,7 +1,9 @@
 import GoogleMapReact from 'google-map-react';
 import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { INewLocation } from '../MapContainer';
+import { db } from '../../../config/firebase';
+import { IUser } from '../../../context/auth';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ReactComponent = ({ lat, lng }: any): JSX.Element => (
@@ -12,10 +14,25 @@ const ReactComponent = ({ lat, lng }: any): JSX.Element => (
 
 interface IMap {
   setCoord: Dispatch<SetStateAction<INewLocation>>;
+  openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
-export function Map({ setCoord, setOpenModal }: IMap): JSX.Element {
+interface IMarkers {
+  id: string;
+  company: string;
+  coord: {
+    lat: number;
+    lng: number;
+  };
+  local: string;
+  reasons: string;
+  user: IUser;
+}
+
+export function Map({ setCoord, openModal, setOpenModal }: IMap): JSX.Element {
+  const [markers, setMarkers] = useState<IMarkers[]>([]);
+
   const defaultProps = {
     center: {
       lat: -23.5489,
@@ -24,20 +41,30 @@ export function Map({ setCoord, setOpenModal }: IMap): JSX.Element {
     zoom: 6,
   };
 
-  const markers = [
-    {
-      lat: -23.5489,
-      lng: -46.6388,
-    },
-    {
-      lat: -20.5489,
-      lng: -42.6388,
-    },
-    {
-      lat: -23.28333,
-      lng: -47.67222,
-    },
-  ];
+  async function getAllLocals(): Promise<void> {
+    const citiesRef = db.collection('locals');
+    const snapshot = await citiesRef.get();
+    const locals = [] as unknown as IMarkers[];
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      locals.push({
+        id: doc.id,
+        company: data.company,
+        coord: {
+          lat: data.coord.lat,
+          lng: data.coord.lng,
+        },
+        local: data.local,
+        reasons: data.reasons,
+        user: data.user,
+      });
+    });
+    setMarkers(locals);
+  }
+
+  useEffect(() => {
+    getAllLocals();
+  }, [openModal]);
 
   function handleClickNewPoint(e: GoogleMapReact.ClickEventValue): void {
     setCoord({
@@ -61,8 +88,8 @@ export function Map({ setCoord, setOpenModal }: IMap): JSX.Element {
         defaultZoom={defaultProps.zoom}
         yesIWantToUseGoogleMapApiInternals
       >
-        {markers.map(info => (
-          <ReactComponent lat={info.lat} lng={info.lng} />
+        {markers?.map(info => (
+          <ReactComponent lat={info.coord.lat} lng={info.coord.lng} />
         ))}
       </GoogleMapReact>
     </div>
