@@ -26,7 +26,7 @@ export default function Dashboard({ userInfo }: IUserInfo): JSX.Element {
       <Navbar />
       <main
         style={{
-          marginTop: 50,
+          marginTop: '1vh',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

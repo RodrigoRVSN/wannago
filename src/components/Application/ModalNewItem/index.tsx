@@ -1,11 +1,4 @@
-import {
-  Modal,
-  Box,
-  Typography,
-  TextField,
-  Avatar,
-  Button,
-} from '@mui/material';
+import { Modal, TextField } from '@mui/material';
 import {
   Dispatch,
   SetStateAction,
@@ -17,7 +10,7 @@ import { db } from '../../../config/firebase';
 import useAuth from '../../../hooks/useAuth';
 import api from '../../../services/api';
 import { INewLocation } from '../MapContainer';
-import { useStyles } from './styles';
+import { ButtonContainer, Local, Logo, ModalContainer, Title } from './styles';
 
 interface IModalNewItem {
   openModal: boolean;
@@ -31,7 +24,6 @@ export function ModalNewItem({
   coord,
 }: IModalNewItem): JSX.Element {
   const { user } = useAuth();
-  const classes = useStyles();
   const [company, setCompany] = useState('');
   const [reasons, setReasons] = useState('');
   const [local, setLocal] = useState();
@@ -60,6 +52,9 @@ export function ModalNewItem({
   useEffect(() => {
     if (openModal) {
       getLocation();
+    } else {
+      setCompany('');
+      setReasons('');
     }
   }, [openModal, getLocation]);
 
@@ -70,32 +65,23 @@ export function ModalNewItem({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box className={classes.modalContainer}>
-        <Avatar
-          className={classes.logo}
-          src={String(user?.photoURL)}
-          alt="Logo wannago"
-        />
-        <Typography className={classes.title} variant="h1">
-          Marcar novo lugar
-        </Typography>
-        <Typography className={classes.local} variant="h3">
-          {local && local}
-        </Typography>
+      <ModalContainer>
+        <Logo src={String(user?.photoURL)} alt="Logo wannago" />
+        <Title>Marcar novo lugar</Title>
+        <Local>{local && local}</Local>
         <TextField
           value={company}
           onChange={e => setCompany(e.target.value)}
-          id="standard-textarea"
           label="Com quem?"
           style={{ width: '100%' }}
           placeholder="Diga para nós com quem você quer ir, ou se quer ir sozinho!"
           multiline
+          rows={3}
           variant="standard"
         />
         <TextField
           value={reasons}
           onChange={e => setReasons(e.target.value)}
-          id="filled-multiline-static"
           label="Motivos"
           multiline
           rows={3}
@@ -103,15 +89,14 @@ export function ModalNewItem({
           placeholder="Digite aqui o motivo para querer ir para esse lugar!"
           variant="standard"
         />
-        <Button
+        <ButtonContainer
           disabled={!reasons || !company}
-          className={classes.button}
           variant="contained"
           onClick={() => handleAddLocal()}
         >
           Marcar novo lugar
-        </Button>
-      </Box>
+        </ButtonContainer>
+      </ModalContainer>
     </Modal>
   ) : (
     <div />

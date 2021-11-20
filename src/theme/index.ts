@@ -13,6 +13,17 @@ const theme = createTheme({
       main: red.A400,
     },
   },
+  components: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: '#FFFFFF',
+          borderRadius: 16,
+          padding: 0,
+        },
+      },
+    },
+  },
 });
 
 export default theme;

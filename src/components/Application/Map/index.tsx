@@ -1,33 +1,14 @@
 import GoogleMapReact from 'google-map-react';
-import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { INewLocation } from '../MapContainer';
 import { db } from '../../../config/firebase';
-import { IUser } from '../../../context/auth';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ReactComponent = ({ lat, lng }: any): JSX.Element => (
-  <div>
-    <PersonPinCircleIcon style={{ color: '#556cd6' }} />
-  </div>
-);
+import { MarkerPin } from '../MarkerPin';
+import { IMarkers } from '../../../@types/IMarkers';
 
 interface IMap {
   setCoord: Dispatch<SetStateAction<INewLocation>>;
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
-}
-
-interface IMarkers {
-  id: string;
-  company: string;
-  coord: {
-    lat: number;
-    lng: number;
-  };
-  local: string;
-  reasons: string;
-  user: IUser;
 }
 
 export function Map({ setCoord, openModal, setOpenModal }: IMap): JSX.Element {
@@ -77,8 +58,8 @@ export function Map({ setCoord, openModal, setOpenModal }: IMap): JSX.Element {
   return (
     <div
       style={{
-        height: '80vh',
-        width: '90vw',
+        height: '90vh',
+        width: '95vw',
       }}
     >
       <GoogleMapReact
@@ -89,7 +70,7 @@ export function Map({ setCoord, openModal, setOpenModal }: IMap): JSX.Element {
         yesIWantToUseGoogleMapApiInternals
       >
         {markers?.map(info => (
-          <ReactComponent lat={info.coord.lat} lng={info.coord.lng} />
+          <MarkerPin marker={info} lat={info.coord.lat} lng={info.coord.lng} />
         ))}
       </GoogleMapReact>
     </div>
