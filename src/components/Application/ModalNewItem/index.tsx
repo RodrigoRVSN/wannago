@@ -1,28 +1,55 @@
-import { makeStyles } from '@material-ui/core';
-import { Modal, Box, Typography } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react';
+import {
+  Modal,
+  Box,
+  Typography,
+  TextField,
+  Avatar,
+  Button,
+} from '@mui/material';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import useAuth from '../../../hooks/useAuth';
+import api from '../../../services/api';
+import { INewLocation } from '../MapContainer';
+import { useStyles } from './styles';
 
 interface IModalNewItem {
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
+  coord: INewLocation;
 }
-
-const useStyles = makeStyles(theme => ({
-  modalContainer: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    backgroundColor: `#556cd6`,
-  },
-}));
 
 export function ModalNewItem({
   openModal,
   setOpenModal,
+  coord,
 }: IModalNewItem): JSX.Element {
+  const { user } = useAuth();
   const classes = useStyles();
+  const [company, setCompany] = useState('');
+  const [reasons, setReasons] = useState('');
+  const [local, setLocal] = useState();
+
+  const getLocation = useCallback(async () => {
+    const response = await api.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coord.lat},${coord.lng}&sensor=true&key=${process.env.NEXT_PUBLIC_PLACES_KEY}`
+    );
+    const lenght = response.data.results.length;
+    setLocal(response.data.results[lenght - 3]?.formatted_address);
+  }, [coord.lat, coord.lng]);
+
+  useEffect(() => {
+    if (openModal) {
+      getLocation();
+    }
+  }, [openModal, getLocation]);
+
   return openModal ? (
     <Modal
       open={openModal}
@@ -31,12 +58,45 @@ export function ModalNewItem({
       aria-describedby="modal-modal-description"
     >
       <Box className={classes.modalContainer}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
+        <Avatar
+          className={classes.logo}
+          src={String(user?.photoURL)}
+          alt="Logo wannago"
+        />
+        <Typography className={classes.title} variant="h1">
+          Marcar novo lugar
         </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        <Typography className={classes.local} variant="h3">
+          {local && local}
         </Typography>
+        <TextField
+          value={company}
+          onChange={e => setCompany(e.target.value)}
+          id="standard-textarea"
+          label="Com quem?"
+          style={{ width: '100%' }}
+          placeholder="Diga para nós com quem você quer ir, ou se quer ir sozinho!"
+          multiline
+          variant="standard"
+        />
+        <TextField
+          value={reasons}
+          onChange={e => setReasons(e.target.value)}
+          id="filled-multiline-static"
+          label="Motivos"
+          multiline
+          rows={3}
+          style={{ width: '100%' }}
+          placeholder="Digite aqui o motivo para querer ir para esse lugar!"
+          variant="standard"
+        />
+        <Button
+          disabled={!reasons || !company}
+          className={classes.button}
+          variant="contained"
+        >
+          Marcar novo lugar
+        </Button>
       </Box>
     </Modal>
   ) : (

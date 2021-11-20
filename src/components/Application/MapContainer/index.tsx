@@ -13,11 +13,12 @@ export function MapContainer(): JSX.Element {
 
   return (
     <>
-      <button type="button" onClick={() => setOpenModal(true)}>
-        oi
-      </button>
-      <Map setCoord={setCoord} />
-      <ModalNewItem openModal={openModal} setOpenModal={setOpenModal} />
+      <Map setCoord={setCoord} setOpenModal={setOpenModal} />
+      <ModalNewItem
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        coord={coord}
+      />
     </>
   );
 }

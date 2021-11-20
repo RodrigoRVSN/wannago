@@ -12,9 +12,10 @@ const ReactComponent = ({ lat, lng }: any): JSX.Element => (
 
 interface IMap {
   setCoord: Dispatch<SetStateAction<INewLocation>>;
+  setOpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
-export function Map({ setCoord }: IMap): JSX.Element {
+export function Map({ setCoord, setOpenModal }: IMap): JSX.Element {
   const defaultProps = {
     center: {
       lat: -23.5489,
@@ -33,8 +34,8 @@ export function Map({ setCoord }: IMap): JSX.Element {
       lng: -42.6388,
     },
     {
-      lat: -21.5489,
-      lng: -44.6388,
+      lat: -23.28333,
+      lng: -47.67222,
     },
   ];
 
@@ -43,6 +44,7 @@ export function Map({ setCoord }: IMap): JSX.Element {
       lat: e.lat,
       lng: e.lng,
     });
+    setOpenModal(true);
   }
 
   return (
