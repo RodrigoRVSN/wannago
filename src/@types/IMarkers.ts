@@ -1,5 +1,3 @@
-import { IUser } from '../context/auth';
-
 export interface IMarkers {
   id: string;
   company: string;
@@ -9,5 +7,10 @@ export interface IMarkers {
   };
   local: string;
   reasons: string;
-  user: IUser;
+  user: {
+    displayName: string;
+    email: string;
+    photoURL: string;
+    uid: string;
+  };
 }

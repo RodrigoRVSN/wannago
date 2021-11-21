@@ -8,7 +8,6 @@ import {
   BodyContainer,
   TextFieldContainer,
 } from './styles';
-import useAuth from '../../../hooks/useAuth';
 import { IMarkers } from '../../../@types/IMarkers';
 
 interface IToolTipProps {
@@ -16,19 +15,18 @@ interface IToolTipProps {
 }
 
 export const ToolTip = ({ marker }: IToolTipProps): JSX.Element => {
-  const { user } = useAuth();
   return (
     <TooltipContainer>
       <BoxContainer>
-        <Avatar src={String(user?.photoURL)} alt="Foto do usuário" />
+        <Avatar src={String(marker.user.photoURL)} alt="Foto do usuário" />
         <Stack
           style={{
             justifyContent: 'flex-start',
             paddingLeft: 15,
           }}
         >
-          <Title>{user?.displayName}</Title>
-          <Subtitle>{user?.email}</Subtitle>
+          <Title>{marker.user.displayName}</Title>
+          <Subtitle>{marker.user.email}</Subtitle>
         </Stack>
       </BoxContainer>
       <BodyContainer>
