@@ -1,6 +1,7 @@
 import { CircularProgress, Box } from '@mui/material';
 import useAuth from '../../../hooks/useAuth';
 import LinearProgresBar from '../../LinearProgressBar';
+import ToggleThemeButton from '../../ToggleThemeButton';
 import { ButtonContainer, Logo, LogoSocial, Main, Text } from './styles';
 
 export default function MainContent(): JSX.Element {
@@ -9,7 +10,9 @@ export default function MainContent(): JSX.Element {
   return (
     <Main>
       <LinearProgresBar loading={loading} />
+      <ToggleThemeButton />
       <Logo src="/logo.png" alt="Logo wannago" />
+
       <Text>
         No WannaGo você pode marcar os lugares nos quais você quer visitar, para
         dar aquela motivação!

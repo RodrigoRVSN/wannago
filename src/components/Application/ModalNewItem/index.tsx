@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { toast } from 'react-toastify';
 import { db } from '../../../config/firebase';
 import useAuth from '../../../hooks/useAuth';
 import api from '../../../services/api';
@@ -25,24 +26,48 @@ export function ModalNewItem({
   coord,
 }: IModalNewItem): JSX.Element {
   const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
   const [company, setCompany] = useState('');
   const [reasons, setReasons] = useState('');
   const [local, setLocal] = useState();
-  const [loading, setLoading] = useState(true);
 
-  async function handleAddLocal(): Promise<void> {
-    setLoading(true);
-    db.collection('locals').doc(String(Math.random())).set({
-      company,
-      coord,
-      local,
-      reasons,
-      user,
-    });
+  function clearStates(): void {
     setLoading(false);
     setOpenModal(false);
     setCompany('');
     setReasons('');
+  }
+
+  async function handleAddLocal(): Promise<void> {
+    setLoading(true);
+    if (!local) {
+      toast.error('Local inválido');
+      clearStates();
+      return;
+    }
+
+    db.collection('locals')
+      .doc(String(Math.random()))
+      .set({
+        company,
+        coord,
+        local,
+        reasons,
+        user,
+      })
+      .then(() => {
+        toast.success('Local registrado com sucesso!', {
+          icon: '🛫',
+        });
+      })
+      .catch(err => {
+        toast.error(err.message, {
+          icon: '❌',
+        });
+      })
+      .finally(() => {
+        clearStates();
+      });
   }
 
   const getLocation = useCallback(async () => {
@@ -66,6 +91,7 @@ export function ModalNewItem({
   return openModal ? (
     <>
       <LinearProgresBar loading={loading} />
+
       <Modal
         open={openModal}
         onClose={() => setOpenModal(false)}

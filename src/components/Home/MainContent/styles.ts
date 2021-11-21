@@ -19,7 +19,7 @@ const Main = styled(Box)(({ theme }) => ({
 const Text = styled('p')(({ theme }) => ({
   textAlign: 'justify',
   fontSize: '1.5rem',
-  fontFamily: 'Roboto',
+  fontFamily: 'Poppins',
   fontWeight: 700,
   marginBottom: theme.spacing(6),
 }));
@@ -30,6 +30,7 @@ const ButtonContainer = styled(Button)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-evenly',
   padding: '2rem',
+  fontFamily: 'Poppins',
   fontSize: '1.1rem',
   borderRadius: '1.1rem',
   [theme.breakpoints.down('sm')]: {

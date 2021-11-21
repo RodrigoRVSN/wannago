@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Head from 'next/head';
-import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { NextComponentType } from 'next';
+import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from '../context/auth';
-import theme from '../theme';
 import createEmotionCache from '../theme/createEmotionCache';
+import 'react-toastify/dist/ReactToastify.css';
+import { ColorModeContextProvider } from '../context/colorMode';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -28,12 +29,13 @@ export default function MyApp({
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="shortcut icon" href="/logo.png" type="image/x-icon" />
       </Head>
-      <ThemeProvider theme={theme}>
+      <ColorModeContextProvider>
         <AuthProvider>
+          <ToastContainer theme="colored" />
           <CssBaseline />
           <Component {...pageProps} />
         </AuthProvider>
-      </ThemeProvider>
+      </ColorModeContextProvider>
     </CacheProvider>
   );
 }

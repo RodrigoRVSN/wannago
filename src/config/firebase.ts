@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { toast } from 'react-toastify';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -15,7 +16,9 @@ const firebaseConfig = {
 try {
   firebase.initializeApp(firebaseConfig);
 } catch (err: any) {
-  // console.log(err.message);
+  toast.error(err.message, {
+    icon: '❌',
+  });
 }
 const fire = firebase;
 const auth = firebase.auth();

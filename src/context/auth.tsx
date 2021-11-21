@@ -8,6 +8,7 @@ import {
   useCallback,
   useState,
 } from 'react';
+import { toast } from 'react-toastify';
 import firebase, { auth } from '../config/firebase';
 
 export interface IUser {
@@ -26,11 +27,11 @@ export interface IAuthContextData {
   handleSignOut: () => void;
 }
 
-export const AuthContextData = createContext({} as IAuthContextData);
-
 interface IAuthProvider {
   children: ReactNode;
 }
+
+export const AuthContextData = createContext({} as IAuthContextData);
 
 export function AuthProvider({ children }: IAuthProvider): JSX.Element {
   const [user, setUser] = useState<firebase.default.User | null>(null);
@@ -39,22 +40,38 @@ export function AuthProvider({ children }: IAuthProvider): JSX.Element {
 
   const handleSignInGoogle = useCallback(async () => {
     setLoading(true);
-    const response = await auth.signInWithPopup(
-      new firebase.auth.GoogleAuthProvider()
-    );
-    if (response.user) {
+    const response = (await auth
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .catch(err => {
+        toast.error(err.message, {
+          icon: '❌',
+        });
+      })) as any;
+
+    if (response?.user) {
       setUser(response.user);
-      await response.user.getIdToken().then(token => {
-        setCookie(undefined, '@wannago_token', token);
-      });
+      await response.user
+        .getIdToken()
+        .then((token: string) => {
+          setCookie(undefined, '@wannago_token', token);
+        })
+        .catch((err: Error) => {
+          toast.error(err.message, {
+            icon: '❌',
+          });
+        });
       router.push('/application');
-      setLoading(false);
     }
+    setLoading(false);
   }, [router]);
 
   const handleSignOut = useCallback(async () => {
     setLoading(true);
-    await auth.signOut();
+    await auth.signOut().catch(err => {
+      toast.error(err.message, {
+        icon: '❌',
+      });
+    });
     router.push('/');
     destroyCookie(undefined, '@wannago_token');
     setUser({} as firebase.default.User | null);

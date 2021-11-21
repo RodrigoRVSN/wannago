@@ -1,8 +1,8 @@
 import { styled } from '@mui/material/styles';
 import { Box, Stack, TextField } from '@mui/material';
 
-const TooltipContainer = styled('div')(() => ({
-  backgroundColor: '#FFF',
+const TooltipContainer = styled('div')(({ theme }) => ({
+  backgroundColor: `${theme.palette.background.paper}`,
   display: 'flex',
   flexDirection: 'column',
   width: 300,

@@ -1,22 +1,21 @@
-import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { PaletteMode } from '@mui/material';
 
-const theme = createTheme({
+const theme = (mode: PaletteMode): any => ({
   palette: {
+    mode,
     primary: {
       main: '#556cd6',
     },
     secondary: {
       main: '#023e8a',
     },
-    error: {
-      main: red.A400,
-    },
   },
+
   components: {
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
+          background: mode === 'dark' ? '#000000' : '#FFFFFF',
           backgroundColor: '#FFFFFF',
           borderRadius: 16,
           padding: 0,
@@ -26,4 +25,4 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+export { theme };
