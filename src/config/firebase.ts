@@ -20,10 +20,10 @@ try {
     icon: '❌',
   });
 }
-const fire = firebase;
-const auth = firebase.auth();
-const db = firebase.firestore();
 
+const fire = firebase;
+const auth = fire.auth();
+const db = fire.firestore();
 export { auth, db };
 
 export default fire;

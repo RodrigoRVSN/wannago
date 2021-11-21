@@ -1,8 +1,9 @@
-import { CircularProgress, Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import useAuth from '../../../hooks/useAuth';
 import LinearProgresBar from '../../LinearProgressBar';
 import ToggleThemeButton from '../../ToggleThemeButton';
-import { ButtonContainer, Logo, LogoSocial, Main, Text } from './styles';
+import ButtonLogin from '../ButtonLogin';
+import { Logo, Main, Text } from './styles';
 
 export default function MainContent(): JSX.Element {
   const { handleSignInGoogle, loading } = useAuth();
@@ -17,22 +18,18 @@ export default function MainContent(): JSX.Element {
         No WannaGo você pode marcar os lugares nos quais você quer visitar, para
         dar aquela motivação!
       </Text>
-      <ButtonContainer
-        disabled={loading}
-        onClick={handleSignInGoogle}
-        variant="contained"
+      <Stack
+        style={{
+          gap: 20,
+          width: '100%',
+        }}
       >
-        <LogoSocial
-          style={{ marginRight: 'auto' }}
-          src="/google_logo.png"
-          alt="Logo Google"
+        <ButtonLogin
+          handleLogin={handleSignInGoogle}
+          title="Google"
+          logo="/google_logo.png"
         />
-        {loading ? (
-          <CircularProgress color="primary" style={{ marginRight: 'auto' }} />
-        ) : (
-          <Box style={{ marginRight: 'auto' }}>Entrar com google</Box>
-        )}
-      </ButtonContainer>
+      </Stack>
     </Main>
   );
 }

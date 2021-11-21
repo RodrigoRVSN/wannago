@@ -54,7 +54,6 @@ export const getServerSideProps = withSSRAuth(async ctx => {
       userInfo = dataFormatted;
     });
   }
-
   return {
     props: { userInfo },
   };

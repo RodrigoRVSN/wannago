@@ -21,7 +21,11 @@ const ContainerBox = styled(Box)(({ theme }) => ({
 const AvatarContainer = styled(Avatar)(({ theme }) => ({
   height: '40rem',
   width: '40rem',
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('xl')]: {
+    height: '30rem',
+    width: '30rem',
+  },
+  [theme.breakpoints.down('lg')]: {
     height: '20rem',
     width: '20rem',
   },

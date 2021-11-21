@@ -39,6 +39,7 @@
     "react-toastify": "^8.1.0"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^2.0.1",
     "@testing-library/dom": "^8.11.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^12.1.2",

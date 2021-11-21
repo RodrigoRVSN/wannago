@@ -813,6 +813,13 @@
     "@firebase/util" "1.4.2"
     tslib "^2.1.0"
 
+"@firebase/rules-unit-testing@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@firebase/rules-unit-testing/-/rules-unit-testing-2.0.1.tgz#d34f26f818d2827d6d0a89a8bb8e1169137cbc47"
+  integrity sha512-AhG0BZHHUZD4BVHUQOGXe4WkfuS9pNsXtHYmi8jxo7pR+oH967hkZere9Qn4GMbikwfv/KRkKBtKisf24F/SDA==
+  dependencies:
+    node-fetch "2.6.2"
+
 "@firebase/storage-compat@0.1.8":
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/@firebase/storage-compat/-/storage-compat-0.1.8.tgz#edbd9e2d8178c5695817e75f1da5c570c11f44dd"
@@ -5480,6 +5487,11 @@ node-fetch@2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
+
+node-fetch@2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.2.tgz#986996818b73785e47b1965cc34eb093a1d464d0"
+  integrity sha512-aLoxToI6RfZ+0NOjmWAgn9+LEd30YCkJKFSyWacNZdEKTit/ZMcKjGkTRo8uWEsnIb/hfKecNPEbln02PdWbcA==
 
 node-fetch@2.6.5:
   version "2.6.5"

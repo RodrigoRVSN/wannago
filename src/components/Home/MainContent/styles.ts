@@ -8,7 +8,7 @@ const Main = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('lg')]: {
     maxWidth: '55vw',
   },
   [theme.breakpoints.down('sm')]: {

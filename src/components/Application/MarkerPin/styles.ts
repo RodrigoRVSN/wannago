@@ -13,6 +13,7 @@ const TooltipContainer = styled('div')(({ theme }) => ({
 const BoxContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-start',
+  alignItems: 'center',
   backgroundColor: `${theme.palette.secondary.main}`,
   color: '#FFFFFF',
   padding: 16,
