@@ -1,5 +1,3 @@
-🚧 Em desenvolvimento
-
 <center>
   <img src="./public/logo.png" width="150px"/>
 </center>
@@ -15,6 +13,7 @@
 ___
 <!--- #################### mudar badges #################### --->
 
+https://user-images.githubusercontent.com/75763403/142768841-c07260be-947b-4f5b-83e4-038f4b0b76db.mp4
 
 <!--- #################### mudar imagem exemplo #################### --->
 ___
@@ -27,7 +26,7 @@ ___
 - [x] Render Map
 - [x] Pin locals and add descriptions in the local.
 - [x] Save info in Firestore
-- [ ] Thinking...
+- [x] Dark mode
 ___
 ## 💻 Prerequisites
 
@@ -81,3 +80,4 @@ Made with ❤️ by:
     </td>
   </tr>
 </table>
+>>>>>>> 16c964fa919c941eada30edcc5fbbd8111560be9
