@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 import { toast } from 'react-toastify';
-import { db } from '../../../config/firebase';
+import fire from '../../../config/firebase';
 import useAuth from '../../../hooks/useAuth';
 import api from '../../../services/api';
 import LinearProgresBar from '../../LinearProgressBar';
@@ -46,7 +46,9 @@ export function ModalNewItem({
       return;
     }
 
-    db.collection('locals')
+    fire
+      .firestore()
+      .collection('locals')
       .doc(String(Math.random()))
       .set({
         company,
@@ -56,7 +58,7 @@ export function ModalNewItem({
         user,
       })
       .then(() => {
-        toast.success('Local registrado com sucesso!', {
+        toast.dark('Local registrado com sucesso!', {
           icon: '🛫',
         });
       })
@@ -100,7 +102,7 @@ export function ModalNewItem({
       >
         <ModalContainer>
           <Logo src={String(user?.photoURL)} alt="Logo wannago" />
-          <Title>Marcar novo lugar</Title>
+          <Title>Marcar onde quero ir</Title>
           <Local>{local && local}</Local>
           <TextField
             value={company}

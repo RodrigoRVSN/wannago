@@ -22,8 +22,5 @@ try {
 }
 
 const fire = firebase;
-const auth = fire.auth();
-const db = fire.firestore();
-export { auth, db };
 
 export default fire;

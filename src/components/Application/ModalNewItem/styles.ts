@@ -27,7 +27,7 @@ const Logo = styled(Avatar)(() => ({
 }));
 const Title = styled('h1')(() => ({
   fontFamily: 'Roboto',
-  fontSize: '1.4rem',
+  fontSize: '1.8rem',
   fontWeight: 'bold',
 }));
 

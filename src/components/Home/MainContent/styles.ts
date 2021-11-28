@@ -1,6 +1,7 @@
 import { Avatar, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/system';
+import { appearFromTop } from '../../../styles/Animations';
 
 const Main = styled(Box)(({ theme }) => ({
   maxWidth: '25vw',
@@ -8,6 +9,8 @@ const Main = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+
+  animation: `${appearFromTop} 0.5s ease-in`,
   [theme.breakpoints.down('lg')]: {
     maxWidth: '55vw',
   },

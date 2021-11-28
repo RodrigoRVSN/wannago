@@ -1,7 +1,7 @@
 import GoogleMapReact from 'google-map-react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { INewLocation } from '../MapContainer';
-import { db } from '../../../config/firebase';
+import fire from '../../../config/firebase';
 import { MarkerPin } from '../MarkerPin';
 import { IMarkers } from '../../../@types/IMarkers';
 import LinearProgresBar from '../../LinearProgressBar';
@@ -25,7 +25,7 @@ export function Map({ setCoord, openModal, setOpenModal }: IMap): JSX.Element {
   };
 
   async function getAllLocals(): Promise<void> {
-    const citiesRef = db.collection('locals');
+    const citiesRef = fire.firestore().collection('locals');
     const snapshot = await citiesRef.get();
     const locals = [] as unknown as IMarkers[];
     snapshot.forEach(doc => {

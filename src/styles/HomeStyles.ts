@@ -1,5 +1,6 @@
 import { Avatar, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { appearFromRight } from './Animations';
 
 const ContainerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -21,6 +22,8 @@ const ContainerBox = styled(Box)(({ theme }) => ({
 const AvatarContainer = styled(Avatar)(({ theme }) => ({
   height: '40rem',
   width: '40rem',
+
+  animation: `${appearFromRight} 0.5s ease-in`,
   [theme.breakpoints.down('xl')]: {
     height: '30rem',
     width: '30rem',

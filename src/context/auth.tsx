@@ -9,7 +9,8 @@ import {
   useState,
 } from 'react';
 import { toast } from 'react-toastify';
-import firebase, { auth } from '../config/firebase';
+import fire from '../config/firebase';
+import firebase from '../config/firebase';
 
 export interface IUser {
   user_id: string;
@@ -40,9 +41,10 @@ export function AuthProvider({ children }: IAuthProvider): JSX.Element {
 
   const handleSignInGoogle = useCallback(async () => {
     setLoading(true);
-    const response = (await auth
+    const response = (await fire
+      .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .catch(err => {
+      .catch((err: Error) => {
         toast.error(err.message, {
           icon: '❌',
         });
@@ -67,11 +69,14 @@ export function AuthProvider({ children }: IAuthProvider): JSX.Element {
 
   const handleSignOut = useCallback(async () => {
     setLoading(true);
-    await auth.signOut().catch(err => {
-      toast.error(err.message, {
-        icon: '❌',
+    await fire
+      .auth()
+      .signOut()
+      .catch((err: Error) => {
+        toast.error(err.message, {
+          icon: '❌',
+        });
       });
-    });
     router.push('/');
     destroyCookie(undefined, '@wannago_token');
     setUser({} as firebase.default.User | null);
