@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { PersonPin, PinDrop } from '@mui/icons-material';
+import { PinDrop } from '@mui/icons-material';
 import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
-import { Tooltip, useTheme } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import { memo } from 'react';
 import { IMarkers } from '../../../@types/IMarkers';
 import useAuth from '../../../hooks/useAuth';
