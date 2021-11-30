@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { PersonPin, PinDrop } from '@mui/icons-material';
 import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
-import { Tooltip } from '@mui/material';
+import { Tooltip, useTheme } from '@mui/material';
 import { memo } from 'react';
 import { IMarkers } from '../../../@types/IMarkers';
+import useAuth from '../../../hooks/useAuth';
 import { ToolTip } from './ToolTip';
 
 interface IMarkerProps {
@@ -16,11 +18,16 @@ export const MarkerPinComponent = ({
   lat,
   lng,
 }: IMarkerProps): JSX.Element => {
+  const { user } = useAuth();
   const toolTip = <ToolTip marker={marker} />;
 
   return (
     <Tooltip title={toolTip}>
-      <PersonPinCircleIcon style={{ color: '#556cd6' }} />
+      {marker.user.email === user?.email ? (
+        <PinDrop style={{ color: '#000000' }} />
+      ) : (
+        <PersonPinCircleIcon style={{ color: '#556cd6' }} />
+      )}
     </Tooltip>
   );
 };
