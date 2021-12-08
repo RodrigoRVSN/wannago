@@ -19,12 +19,27 @@ const Main = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Text = styled('p')(({ theme }) => ({
+const Text = styled('h2')(({ theme }) => ({
   textAlign: 'justify',
   fontSize: '1.5rem',
   fontFamily: 'Poppins',
   fontWeight: 700,
   marginBottom: theme.spacing(6),
+}));
+
+const TextNumberContainer = styled('h3')(() => ({
+  display: 'flex',
+  gap: 10,
+  alignItems: 'center',
+  marginRight: 'auto',
+}));
+
+const TextNumber = styled('h3')(() => ({
+  fontSize: '1.2rem',
+  fontFamily: 'Poppins',
+  fontWeight: 500,
+  textAlign: 'left',
+  alignItems: 'center',
 }));
 
 const ButtonContainer = styled(Button)(({ theme }) => ({
@@ -53,4 +68,12 @@ const LogoSocial = styled(Avatar)(() => ({
   height: '2.5rem',
 }));
 
-export { Main, Text, ButtonContainer, Logo, LogoSocial };
+export {
+  Main,
+  Text,
+  TextNumberContainer,
+  TextNumber,
+  ButtonContainer,
+  Logo,
+  LogoSocial,
+};

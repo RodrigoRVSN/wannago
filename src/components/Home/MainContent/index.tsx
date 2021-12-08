@@ -1,11 +1,16 @@
+import { Info } from '@mui/icons-material';
 import { Stack } from '@mui/material';
 import useAuth from '../../../hooks/useAuth';
 import LinearProgresBar from '../../LinearProgressBar';
 import ToggleThemeButton from '../../ToggleThemeButton';
 import ButtonLogin from '../ButtonLogin';
-import { Logo, Main, Text } from './styles';
+import { Logo, Main, Text, TextNumberContainer, TextNumber } from './styles';
 
-export default function MainContent(): JSX.Element {
+interface IMain {
+  numberOfLocals: number;
+}
+
+export default function MainContent({ numberOfLocals }: IMain): JSX.Element {
   const { handleSignInGoogle, loading } = useAuth();
 
   return (
@@ -30,6 +35,15 @@ export default function MainContent(): JSX.Element {
           logo="/google_logo.png"
         />
       </Stack>
+
+      <TextNumberContainer>
+        <Info />
+        <TextNumber>
+          {numberOfLocals > 0
+            ? `${numberOfLocals} marcações até agora!`
+            : ' Seja o primeiro a marcar um lugar!'}
+        </TextNumber>
+      </TextNumberContainer>
     </Main>
   );
 }
