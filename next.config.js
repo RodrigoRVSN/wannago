@@ -9,6 +9,7 @@ module.exports = withPWA({
     register: true,
     skipWaiting: true,
     runtimeCaching,
+    dynamicStartUrl: false, // pre-cache home
     buildExcludes: [/middleware-manifest.json$/],
   },
 });
