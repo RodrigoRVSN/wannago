@@ -5,5 +5,10 @@ module.exports = withPWA({
   pwa: {
     dest: 'public',
     disable: process.env.NODE_ENV === 'development',
+
+    register: false,
+    skipWaiting: false,
+    dynamicStartUrl: false, // pre-cache home
+    buildExcludes: [/middleware-manifest\.json$/],
   },
 });
