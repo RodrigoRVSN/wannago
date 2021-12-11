@@ -40,6 +40,7 @@ ___
 - Material UI
 - Reac Google Maps API
 - Nookies
+- Next-pwa
 
 <!--- #################### mudar ferramentas #################### --->
 ___

@@ -1,0 +1,31 @@
+{
+    "theme_color": "#556cd6",
+    "background_color": "#023e8a",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "wannago",
+    "short_name": "wannago",
+    "icons": [
+        {
+            "src": "/pwa/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/pwa/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/pwa/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/pwa/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

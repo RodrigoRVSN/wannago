@@ -34,3 +34,9 @@ yarn-error.log*
 .vercel
 
 /tsconfig.tsbuildinfo
+
+
+# PWA
+public/pwa/sw.js
+public/pwa/workbox-*.js
+public/pwa/fallback-*.js
